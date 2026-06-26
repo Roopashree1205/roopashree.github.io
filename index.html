@@ -1,239 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roopashree A | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roopashree A | CSE Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0a1e;
+    --ink-muted: #5b5478;
+    --lavender: #c4b5fd;
+    --lavender-dim: #7c3aed;
+    --mint: #6ee7b7;
+    --mint-dim: #059669;
+    --surface: #ffffff;
+    --surface-tint: #f5f3ff;
+    --border: rgba(124,58,237,0.15);
+    --hero-bg: #1a1040;
+    --hero-text: #ede9fe;
+    --hero-muted: #a78bfa;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--surface); color: var(--ink); line-height: 1.7; }
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 4rem); height: 60px;
+    background: rgba(26,16,64,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,181,253,0.12);
+  }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--lavender); letter-spacing: -0.02em; text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 1.8rem; }
+  nav ul a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; color: rgba(237,233,254,0.7); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  nav ul a:hover { color: var(--lavender); }
 
-    body{
-      background:#f4f6f9;
-      color:#333;
-      line-height:1.6;
-    }
+  #hero {
+    min-height: 100vh; background: var(--hero-bg);
+    display: flex; align-items: center;
+    padding: 100px clamp(1.5rem, 8vw, 6rem) 80px;
+    position: relative; overflow: hidden;
+  }
+  #hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%); pointer-events: none; }
+  #hero::after { content: ''; position: absolute; bottom: -150px; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(110,231,183,0.12) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner { max-width: 900px; position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mint); margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--mint); }
+  h1.hero-name { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; color: var(--hero-text); margin-bottom: 1.5rem; }
+  h1.hero-name .accent { display: block; background: linear-gradient(135deg, var(--lavender) 0%, var(--mint) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-tagline { font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--hero-muted); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.65; }
+  .hero-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; padding: 0.85rem 2rem; background: var(--lavender-dim); color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
+  .btn-ghost { display: inline-block; padding: 0.85rem 2rem; border: 1.5px solid rgba(196,181,253,0.35); color: var(--lavender); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .btn-ghost:hover { border-color: var(--lavender); background: rgba(196,181,253,0.08); }
 
-    header{
-      background:#0f172a;
-      color:white;
-      padding:40px 20px;
-      text-align:center;
-    }
+  section { padding: 5.5rem clamp(1.5rem, 8vw, 6rem); }
+  .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lavender-dim); margin-bottom: 0.75rem; }
+  .section-label::before { content: ''; display: inline-block; width: 20px; height: 1.5px; background: var(--lavender-dim); }
+  h2.section-heading { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin-bottom: 1rem; }
 
-    header h1{
-      font-size:40px;
-      margin-bottom:10px;
-    }
+  /* ABOUT */
+  #about { background: var(--surface-tint); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .about-avatar-wrap { display: flex; justify-content: center; }
+  .avatar-ring { width: 210px; height: 210px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender-dim), var(--mint-dim)); padding: 3px; flex-shrink: 0; }
+  .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--hero-bg); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 4.5rem; font-weight: 700; color: var(--lavender); }
+  .about-text p { font-size: 1rem; color: var(--ink); margin-bottom: 1.1rem; }
+  .about-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .chip { padding: 5px 14px; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2); color: var(--lavender-dim); font-size: 0.8rem; font-weight: 500; border-radius: 20px; }
 
-    header p{
-      font-size:18px;
-    }
+  /* SKILLS */
+  #skills { background: #fff; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .skill-card { padding: 1.75rem; background: var(--surface-tint); border: 1px solid var(--border); border-radius: 16px; transition: border-color 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-3px); }
+  .skill-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(124,58,237,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+  .skill-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+  .skill-card p { font-size: 0.87rem; color: var(--ink-muted); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+  .skill-tag { padding: 3px 10px; background: #fff; border: 1px solid var(--border); color: var(--ink-muted); font-size: 0.75rem; font-weight: 500; border-radius: 6px; }
 
-    nav{
-      background:#1e293b;
-      padding:12px;
-      text-align:center;
-    }
+  /* PROJECTS */
+  #projects { background: var(--hero-bg); }
+  #projects .section-label { color: var(--mint); }
+  #projects .section-label::before { background: var(--mint); }
+  #projects h2.section-heading { color: var(--hero-text); }
+  .project-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .project-card { padding: 1.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(196,181,253,0.15); border-radius: 16px; transition: border-color 0.2s; }
+  .project-card:hover { border-color: rgba(196,181,253,0.4); }
+  .project-card .tag { display: inline-block; padding: 3px 10px; background: rgba(110,231,183,0.15); color: var(--mint); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 5px; margin-bottom: 0.75rem; }
+  .project-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--hero-text); margin-bottom: 0.5rem; }
+  .project-card p { font-size: 0.88rem; color: var(--hero-muted); line-height: 1.6; }
 
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin:0 15px;
-      font-weight:bold;
-    }
+  /* ACHIEVEMENTS */
+  #achievements { background: var(--surface-tint); }
+  .achieve-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+  .achieve-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.25rem 1.5rem; background: #fff; border: 1px solid var(--border); border-radius: 14px; }
+  .achieve-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .achieve-item h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+  .achieve-item p { font-size: 0.85rem; color: var(--ink-muted); }
 
-    nav a:hover{
-      color:#38bdf8;
-    }
+  /* PROFILES */
+  #profiles { background: #fff; }
+  .profiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .profile-card { padding: 1.5rem; background: var(--surface-tint); border: 1px solid var(--border); border-radius: 14px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+  .profile-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-2px); }
+  .profile-card .p-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .profile-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+  .profile-card p { font-size: 0.82rem; color: var(--ink-muted); }
 
-    section{
-      max-width:1000px;
-      margin:auto;
-      padding:40px 20px;
-    }
+  /* CONTACT */
+  #contact { background: var(--hero-bg); }
+  #contact .section-label { color: var(--mint); }
+  #contact .section-label::before { background: var(--mint); }
+  #contact h2.section-heading { color: var(--hero-text); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+  .contact-blurb { font-size: 1rem; color: var(--hero-muted); line-height: 1.75; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link { display: flex; align-items: center; gap: 14px; padding: 1rem 1.25rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(196,181,253,0.18); border-radius: 12px; text-decoration: none; color: var(--hero-text); font-weight: 500; font-size: 0.9rem; transition: border-color 0.2s, background 0.2s; }
+  .contact-link:hover { border-color: rgba(196,181,253,0.45); background: rgba(255,255,255,0.1); }
+  .contact-link .link-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .contact-link .link-meta { display: flex; flex-direction: column; }
+  .contact-link .link-label { font-size: 0.72rem; color: var(--hero-muted); font-weight: 400; }
+  .contact-link .link-value { font-weight: 600; color: var(--hero-text); font-size: 0.88rem; }
 
-    .card{
-      background:white;
-      padding:25px;
-      border-radius:10px;
-      margin-bottom:25px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1);
-    }
+  footer { padding: 2rem clamp(1.5rem, 8vw, 6rem); background: #100930; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(196,181,253,0.08); }
+  footer p { font-size: 0.82rem; color: rgba(167,139,250,0.5); }
+  footer .footer-name { color: var(--lavender); font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
 
-    h2{
-      color:#0f172a;
-      margin-bottom:15px;
-    }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .cursor { display: inline-block; width: 3px; height: 0.85em; background: var(--mint); vertical-align: middle; margin-left: 3px; animation: blink 1s step-end infinite; border-radius: 1px; }
+  .scroll-cue { position: absolute; bottom: 2.5rem; left: clamp(1.5rem, 8vw, 6rem); display: flex; align-items: center; gap: 10px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(167,139,250,0.45); }
+  .scroll-cue::before { content: ''; display: inline-block; width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, rgba(196,181,253,0.4)); }
 
-    ul{
-      padding-left:20px;
-    }
-
-    .project{
-      margin-bottom:20px;
-    }
-
-    .btn{
-      display:inline-block;
-      background:#2563eb;
-      color:white;
-      padding:10px 18px;
-      border-radius:5px;
-      text-decoration:none;
-      margin-top:10px;
-    }
-
-    .btn:hover{
-      background:#1d4ed8;
-    }
-
-    footer{
-      text-align:center;
-      background:#0f172a;
-      color:white;
-      padding:20px;
-      margin-top:20px;
-    }
-
-    @media(max-width:768px){
-      header h1{
-        font-size:30px;
-      }
-    }
-  </style>
+  @media (max-width: 700px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    nav ul { gap: 1rem; }
+    nav ul a { font-size: 0.75rem; }
+  }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <h1>ROOPASHREE A</h1>
-    <p>B.Tech Computer Science and Engineering Student</p>
-    <p>Web Developer | AI Enthusiast | Cyber Security Learner</p>
-  </header>
+<nav>
+  <a href="#hero" class="nav-logo">Roopashree A</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Wins</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <h1 class="hero-name">
+      Roopashree A
+    </h1>
 
-  <section id="about">
-    <div class="card">
-      <h2>About Me</h2>
+    <div class="hero-eyebrow">B.Tech CSE · Sri Manakula Vinayagar Engineering College</div>
+    
+    <p class="hero-tagline">
+      CSE student with CGPA 9.05 — passionate about AI, software development, and web technologies.<br> Selected for India Skills 2026 in Cyber Security.<span class="cursor"></span>
+    </p>
+    <div class="hero-cta-row">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who I Am</div>
+  <h2 class="section-heading">About Me</h2>
+  <div class="about-grid">
+    <div class="about-avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-inner">RA</div>
+      </div>
+    </div>
+    <div class="about-text">
       <p>
-        Dedicated 3rd year Computer Science student with strong knowledge in
-        Java, Python, C, C++, HTML, CSS, and JavaScript.
-        Passionate about Software Development, AI, Web Technologies,
-        and Cyber Security.
+        I'm <strong>Roopashree A</strong>, a dedicated Computer Science and Engineering student at Sri Manakula Vinayagar Engineering College, 
+        Puducherry, with a CGPA of 9.05.
+      </p>
+      <p>
+        I have a solid foundation in C, C++, Java, and Python, and I'm passionate about software development, AI, and web technologies. I actively sharpen my algorithmic problem-solving skills through platforms like HackerRank, LeetCode, and SkillRack.
+      </p>
+      <p>
+        I was selected for the <strong>South Region Level India Skills Competition 2026</strong> (NSDC) in Cyber Security.
+      </p>
+      <div class="about-chips">
+        <span class="chip">AI / ML</span>
+        <span class="chip">NLP</span>
+        <span class="chip">Python</span>
+        <span class="chip">Java</span>
+        <span class="chip">Cyber Security</span>
+        <span class="chip">AR</span>
+        <span class="chip">Web Dev</span>
+        <span class="chip">NPTEL Scholar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I Know</div>
+  <h2 class="section-heading">Technical Skills</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <h3>Programming Languages</h3>
+      <p>Core languages used across coursework, competitive programming, and projects.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">C++</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h3>Frontend Development</h3>
+      <p>Building responsive and interactive user interfaces for web applications.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">🧠</div>
+      <h3>AI / NLP</h3>
+      <p>Applied NLP and OCR for medical document processing and named entity recognition.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">NLP</span>
+        <span class="skill-tag">NER</span>
+        <span class="skill-tag">OCR</span>
+        <span class="skill-tag">Python</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">🛡️</div>
+      <h3>Cyber Security</h3>
+      <p>Selected for South Region India Skills 2026 in Cyber Security by NSDC. Building awareness of secure systems.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Network Security</span>
+        <span class="skill-tag">NSDC Certified</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h3>Data Science</h3>
+      <p>NPTEL certified in Python for Data Science and Database Management Systems.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">DBMS</span>
+        <span class="skill-tag">Data Analysis</span>
+        <span class="skill-tag">NPTEL</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">🕶️</div>
+      <h3>Augmented Reality</h3>
+      <p>Built mobile AR experiences with interactive 3D objects placed in real-world environments.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">AR</span>
+        <span class="skill-tag">3D Visualization</span>
+        <span class="skill-tag">Mobile AR</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've Built</div>
+  <h2 class="section-heading">Projects</h2>
+  <div class="project-cards">
+
+    <div class="project-card">
+      <div class="tag">NLP · AI</div>
+      <h3>Automated Clinical Documentation Improvement</h3>
+      <p>End-to-end CDI system that extracts clinical text using OCR and applies NLP-based Named Entity Recognition (NER) for accurate identification of medical terms.</p>
+    </div>
+
+    <div class="project-card">
+      <div class="tag">Frontend</div>
+      <h3>E-Commerce Frontend</h3>
+      <p>Fully responsive e-commerce interface featuring a product catalog, cart UI, and a complete checkout flow built with HTML, CSS, and JavaScript.</p>
+    </div>
+
+    <div class="project-card">
+      <div class="tag">AR · 3D</div>
+      <h3>AR Garden — Augmented Reality Experience</h3>
+      <p>Mobile AR application that places interactive 3D plants into real-world environments, delivering an immersive augmented reality garden experience.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Recognition</div>
+  <h2 class="section-heading">Achievements & Certifications</h2>
+  <div class="achieve-list">
+
+    <div class="achieve-item">
+      <div class="achieve-icon">🏆</div>
+      <div>
+        <h4>India Skills Competition 2026 — South Region</h4>
+        <p>Selected by the National Skill Development Corporation (NSDC) to represent the South Region in Cyber Security.</p>
+      </div>
+    </div>
+
+    <div class="achieve-item">
+      <div class="achieve-icon">🥈</div>
+      <div>
+        <h4>Second Prize — ACETCM'24 Technical Quiz</h4>
+        <p>Won second place in the technical quiz competition organised by Achariya College of Engineering Technology.</p>
+      </div>
+    </div>
+
+    <div class="achieve-item">
+      <div class="achieve-icon">📄</div>
+      <div>
+        <h4>Paper Presentation — NCICSET'25</h4>
+        <p>Presented a research paper at the national conference hosted by Sri Indu College of Technology, Hyderabad.</p>
+      </div>
+    </div>
+
+    <div class="achieve-item">
+      <div class="achieve-icon">🎓</div>
+      <div>
+        <h4>NPTEL Certifications</h4>
+        <p>Joy of Computing Using Python (91% — Elite + Gold) · Python for Data Science · Database Management Systems</p>
+      </div>
+    </div>
+
+    <div class="achieve-item">
+      <div class="achieve-icon">🔬</div>
+      <div>
+        <h4>NPTEL Winter Internship 2026</h4>
+        <p>Currently completing a structured internship program offered by NPTEL in collaboration with IIT Madras.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECHNICAL PROFILES -->
+<section id="profiles">
+  <div class="section-label">Coding Profiles</div>
+  <h2 class="section-heading">Technical Profiles</h2>
+  <div class="profiles-grid">
+
+    <div class="profile-card">
+      <div class="p-icon">⚡</div>
+      <h4>LeetCode</h4>
+      <p>85 Problems Solved<br>76 Easy · 8 Medium · 1 Hard</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="p-icon">⭐</div>
+      <h4>HackerRank</h4>
+      <p>Certificates in Java and C</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="p-icon">🚀</div>
+      <h4>SkillRack</h4>
+      <p>1000+ Problems Solved</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="p-icon">📘</div>
+      <h4>NPTEL</h4>
+      <p>Elite + Gold · 91% in Python</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-heading">Contact</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-blurb">
+        I'm actively seeking internships and placement opportunities in software development, AI/ML, and web technologies. Whether it's a collaboration, a project, or a career opportunity — I'd love to hear from you!
+      </p>
+      <p class="contact-blurb" style="margin-top:1rem;">
+        I'm also open to hackathons, open-source contributions, and research collaborations. Let's build something impactful together.
       </p>
     </div>
-  </section>
-
-  <section id="skills">
-    <div class="card">
-      <h2>Technical Skills</h2>
-
-      <ul>
-        <li>Java</li>
-        <li>Python</li>
-        <li>C & C++</li>
-        <li>HTML5, CSS3, JavaScript</li>
-        <li>React.js & Node.js</li>
-        <li>MongoDB</li>
-        <li>AWS Basics</li>
-        <li>Cyber Security Fundamentals</li>
-      </ul>
+    <div class="contact-links">
+      <a href="mailto:roopashreebtech@gmail.com" class="contact-link">
+        <div class="link-icon" style="background:rgba(196,181,253,0.12);">📧</div>
+        <div class="link-meta">
+          <span class="link-label">Email</span>
+          <span class="link-value">roopashreebtech@gmail.com</span>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/roopashree-aruna" target="_blank" rel="noopener" class="contact-link">
+        <div class="link-icon" style="background:rgba(14,118,168,0.15);">💼</div>
+        <div class="link-meta">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-value">linkedin.com/in/roopashree-aruna</span>
+        </div>
+      </a>
+      <a href="tel:+919791813533" class="contact-link">
+        <div class="link-icon" style="background:rgba(110,231,183,0.12);">📱</div>
+        <div class="link-meta">
+          <span class="link-label">Phone</span>
+          <span class="link-value">+91 9791813533</span>
+        </div>
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="projects">
-    <div class="card">
-      <h2>Projects</h2>
+<footer>
+  <p>© 2026 <span class="footer-name">Roopashree A</span> · All rights reserved</p>
+  <p style="color:rgba(167,139,250,0.35);font-size:0.78rem;">B.Tech CSE · CGPA 9.04 · Placement Ready</p>
+</footer>
 
-      <div class="project">
-        <h3>Automated Clinical Documentation Improvement</h3>
-        <p>
-          Developed an NLP and OCR based medical documentation system
-          for extracting and analyzing clinical text.
-        </p>
-      </div>
-
-      <div class="project">
-        <h3>AI-Powered Agricultural Product Feedback Analysis</h3>
-        <p>
-          Built a sentiment analysis system for agricultural product
-          reviews and deployed it using AWS.
-        </p>
-      </div>
-
-      <div class="project">
-        <h3>AR Garden – Augmented Reality Experience</h3>
-        <p>
-          Created an AR-based mobile application that places interactive
-          3D plants in real-world environments.
-        </p>
-      </div>
-
-      <div class="project">
-        <h3>E-Commerce Frontend</h3>
-        <p>
-          Developed a responsive e-commerce interface with product catalog,
-          cart system, and checkout flow.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="achievements">
-    <div class="card">
-      <h2>Achievements & Certifications</h2>
-
-      <ul>
-        <li>Selected for India Skills Competition 2026 – Cyber Security</li>
-        <li>Secured 2nd Prize in UT Level India Skills Competition</li>
-        <li>NPTEL Joy of Computing Using Python – Elite + Gold</li>
-        <li>Solved 1000+ problems in Skillrack</li>
-        <li>LeetCode Problem Solver</li>
-      </ul>
-
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="card">
-      <h2>Contact</h2>
-
-      <p><strong>Email:</strong> roopashreebtech@gmail.com</p>
-      <p><strong>Phone:</strong> +91 9791813533</p>
-
-      <p>
-        <strong>LinkedIn:</strong>
-        <a href="https://linkedin.com/in/roopashree-aruna" target="_blank">
-          linkedin.com/in/roopashree-aruna
-        </a>
-      </p>
-
-      <p>
-        <strong>GitHub:</strong>
-        <a href="https://github.com/" target="_blank">
-https://github.com/Roopashree1205
-        </a>
-      </p>
-
-      
-    </div>
-  </section>
-
- 
-
+<script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40 ? 'rgba(26,16,64,0.97)' : 'rgba(26,16,64,0.92)';
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
 </body>
 </html>
